@@ -59,6 +59,10 @@ def saveJSON(tickers):
 #saveJSON(tickers)
 
 #Logic for sending emails when a trade is completed
+#The code sending the emails was set up specifically for HackUSU as a demonstration. 
+#Secure coding is farther along th development path than we were able to achieve in this time. 
+#The HackUSU will be deleted immediately after the event, and any 
+#other identifiable personal information will be replaced with placeholder variables.
 def sendEmail(number, symbol, dollars,change,money):
     fromaddr = "HackUSU2022.AWS@gmail.com"
     toaddr = "tappadw@gmail.com"
