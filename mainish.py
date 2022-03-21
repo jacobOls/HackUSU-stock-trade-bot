@@ -64,8 +64,8 @@ def saveJSON(tickers):
 #The HackUSU will be deleted immediately after the event, and any 
 #other identifiable personal information will be replaced with placeholder variables.
 def sendEmail(number, symbol, dollars,change,money):
-    fromaddr = "HackUSU2022.AWS@gmail.com"
-    toaddr = "tappadw@gmail.com"
+    fromaddr = "sender_email"
+    toaddr = "recipient_email"
     
     msg = MIMEMultipart()
     
