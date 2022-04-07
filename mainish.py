@@ -59,13 +59,9 @@ def saveJSON(tickers):
 #saveJSON(tickers)
 
 #Logic for sending emails when a trade is completed
-#The code sending the emails was set up specifically for HackUSU as a demonstration. 
-#Secure coding is farther along th development path than we were able to achieve in this time. 
-#The HackUSU will be deleted immediately after the event, and any 
-#other identifiable personal information will be replaced with placeholder variables.
 def sendEmail(number, symbol, dollars,change,money):
-    fromaddr = "sender_email"
-    toaddr = "recipient_email"
+    fromaddr = "sender email"
+    toaddr = "reciever email"
     
     msg = MIMEMultipart()
     
@@ -115,11 +111,11 @@ def sendEmail(number, symbol, dollars,change,money):
 t = datetime.datetime.now()
 
 #Logic to begin trading at 8:30 AM Eastern Time (6:30 PM Mountain Time)
-start_time = '08:30:00.00'
+start_time = '03:00:00.00'
 start = datetime.datetime.strptime(start_time, '%H:%M:%S.%f')
 
 #Logic to end trading at 4:00 Eastern Time (2:00 PM Mountain Time)
-end_time = '04:00:00.00'
+end_time = '23:00:00.00'
 end = datetime.datetime.strptime(end_time, '%H:%M:%S.%f')
 
 #This for loop determines if the stock market is open. If yes, times are scheduled for SaveJSON and sendEmail to run
@@ -129,7 +125,7 @@ for ticker in tickers:
         
         scheduler = schedule.Scheduler()
         
-        scheduler.every(30).minutes.do(saveJSON,tickers = tickers)
+        scheduler.every(5).seconds.do(saveJSON,tickers = tickers)
         #scheduler.every(30).seconds.do(sendEmail, number=number, symbol=symbol, dollars = dollars)
     else:
         print("The stock market is currently closed")
@@ -145,17 +141,22 @@ def main():
     disney = Stock('DIS',0)
     hpq = Stock('HPQ',0)
     verizon = Stock('VZ',0)
+    bank_of_america = Stock('BAC',0)
+    wells_fargo = Stock('WFC',0)
     #initialize stocks with market data
-    stocks = [adobe,microsoft,amd,disney,hpq,verizon]
+    stocks = [adobe,microsoft,amd,disney,hpq,verizon,bank_of_america,wells_fargo]
     sold = False
     day = []
     last = 0
-    for i in range(20):
-        for j in range(3):
-            day.append(datetime.datetime(2021, j+1, i+2))
-    # for i in range(15):
-    #     for j in range(1):
+    # for i in range(20):
+    #     for j in range(3):
     #         day.append(datetime.datetime(2021, j+1, i+2))
+
+    # base = datetime.datetime.today()
+    # date_list = [base - datetime.timedelta(days=x+1) for x in range(365)]
+    for i in range(15):
+        for j in range(1):
+            day.append(datetime.datetime(2021, j+1, i+2))
     change = 0
     dollars = 0
     number,symbol,dollars,change,money,money_points = execute(stocks,day)
@@ -167,7 +168,7 @@ def main():
     p = np.poly1d(z)
     plt.plot(x,p(x),'r--')
     plt.savefig('money.png')
-    sendEmail(number, symbol, dollars,change,money)
+    # sendEmail(number, symbol, dollars,change,money)
 
 
 
